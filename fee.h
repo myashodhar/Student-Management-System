@@ -66,7 +66,7 @@ void updateFee()
         
         int i=0;
         int flag=0;
-        for(auto it : arrayTokens)
+        for(const auto it : arrayTokens)
         {
             if(i==0 && classes==it)
             {
@@ -118,7 +118,7 @@ void listAllFees()
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        for(auto it : arrayTokens)
+        for(const auto it : arrayTokens)
         {
 
                 std::format("{:15}{0}", it);// prints d.
@@ -154,7 +154,7 @@ void deleteFee()
 
         int i=0;
         int flag=0;
-        for(auto it : arrayTokens)
+        for(const auto it : arrayTokens)
         {
             if(i==0 && classes==it)
             {
