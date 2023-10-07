@@ -1,16 +1,12 @@
 #include<iostream>
 #include<fstream>
-#include <iostream>
 #include <sstream>
 #include <string>
 #include <iterator> //for std::istream_iterator
 #include <vector>
 #include <iomanip>
-using namespace std;
 
-
-
-typedef struct result
+struct result
 {
  string rId;//for Registration No number
  string classes;//for classNo number
@@ -22,38 +18,38 @@ typedef struct result
 };
 
 
-
 void newResultAdd()
 {
     fstream outfile ("resultInfo.txt",ios::app);
     result s1;
-    cout<<"Registration Id:";
-    cin>>s1.rId;
-    cout<<"Class:";
-    cin>>s1.classes;
-    cout<<"Kannada:";
-    cin>>s1.kannada;
-    cout<<"English:";
-    cin>>s1.english;
-    cout<<"Maths:";
-    cin>>s1.maths;
-    cout<<"science:";
-    cin>>s1.science;
-    cout<<"s.study:";
-    cin>>s1.sStudy;
+    std::cout<<"Registration Id:";
+    std::cin>>s1.rId;
+    std::cout<<"Class:";
+    std::cin>>s1.classes;
+    std::cout<<"Kannada:";
+    std::cin>>s1.kannada;
+    std::cout<<"English:";
+    std::cin>>s1.english;
+    std::cout<<"Maths:";
+    std::cin>>s1.maths;
+    std::cout<<"science:";
+    std::cin>>s1.science;
+    std::cout<<"s.study:";
+    std::cin>>s1.sStudy;
     outfile<<s1.rId<<" "<<s1.classes<<" "<<s1.kannada<<" "<<s1.english<<" "<<s1.maths<<" "<<s1.science<<" "<<s1.sStudy<<endl;
-    cout<<"\n**Successfully Added**\n";
+    std::cout<<"\n**Successfully Added**\n";
     outfile.close();
     return;
 
 }
 void updateResultAdd()
 {
-    string rId,classes;
-    cout<<"\n Enter student registration Id:\n";
-    cin>>rId;
-    cout<<"\n Enter student Class:\n";
-    cin>>classes;
+    string rId;
+    string classes;
+    std::cout<<"\n Enter student registration Id:\n";
+    std::cin>>rId;
+    std::cout<<"\n Enter student Class:\n";
+    std::cin>>classes;
 
     result s1;
     fstream infile ("resultInfo.txt");
@@ -64,15 +60,16 @@ void updateResultAdd()
     {
 
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        int i=0,flag=0;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        int i=0;
+        int flag=0;
+        for(const auto &it : arrayTokens)
         {
-            if(i==0 && rId==*it)
+            if(i==0 && rId==it)
             {
                 flag=1;
             }
@@ -82,18 +79,18 @@ void updateResultAdd()
         }
         if(flag==1)
         {
-            cout<<"Kannada:";
-            cin>>s1.kannada;
-            cout<<"English:";
-            cin>>s1.english;
-            cout<<"Maths:";
-            cin>>s1.maths;
-            cout<<"science:";
-            cin>>s1.science;
-            cout<<"s.study:";
-            cin>>s1.sStudy;
+            std::cout<<"Kannada:";
+            std::cin>>s1.kannada;
+            std::cout<<"English:";
+            std::cin>>s1.english;
+            std::cout<<"Maths:";
+            std::cin>>s1.maths;
+            std::cout<<"science:";
+            std::cin>>s1.science;
+            std::cout<<"s.study:";
+            std::cin>>s1.sStudy;
             tempfile<<rId<<" "<<classes<<" "<<s1.kannada<<" "<<s1.english<<" "<<s1.maths<<" "<<s1.science<<" "<<s1.sStudy<<endl;
-            cout<<"\n**Successfully updated**\n";
+            std::cout<<"\n**Successfully updated**\n";
 
         }
         else
@@ -112,11 +109,12 @@ void updateResultAdd()
 void deleteResult()
 {
 
-        string rId,classes;
-    cout<<"\n Enter student registration Id:\n";
-    cin>>rId;
-    cout<<"\n Enter student Class:\n";
-    cin>>classes;
+    string rId;
+    string classes;
+    std::cout<<"\n Enter student registration Id:\n";
+    std::cin>>rId;
+    std::cout<<"\n Enter student Class:\n";
+    std::cin>>classes;
 
     result s1;
     fstream infile ("resultInfo.txt");
@@ -127,15 +125,16 @@ void deleteResult()
     {
 
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        int i=0,flag=0;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        int i=0;
+        int flag=0;
+        for(const auto &it : arrayTokens)
         {
-            if(i==0 && rId==*it)
+            if(i==0 && rId==it)
             {
                 flag=1;
             }
@@ -149,25 +148,24 @@ void deleteResult()
         }
         else
         {
-            cout<<"\n\n ** deleted successfully**\n\n";
+            std::cout<<"\n\n ** deleted successfully**\n\n";
         }
     }
     infile.close();
     tempfile.close();
     remove("resultInfo.txt");
     rename("tempInfo.txt","resultInfo.txt");
-
-
-
 }
 
 void overAllClassResult()
 {
     string classes;
-    cout<<"Enter the class:";
-    cin>>classes;
+    std::cout<<"Enter the class:";
+    std::cin>>classes;
 
-    int failCount=0,passCount=0,totalCount=0;
+    int failCount=0;
+    int passCount=0;
+    int totalCount=0;
 
     ifstream file("resultInfo.txt");
     string line;
@@ -176,34 +174,29 @@ void overAllClassResult()
     {
             check_fail=0;
             istringstream ss(line);
-            std::istream_iterator<std::string> begin(ss), end;
+            std::istream_iterator<std::string> begin(ss);
+            std::istream_iterator<std::string> end;
             //putting all the tokens in the vector
             std::vector<std::string> arrayTokens(begin, end);
-            vector<string>::iterator it;
-            int flag=0,i=0;
-            for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+            int flag=0;
+            int i=0;
+            for(const auto &it : arrayTokens)
             {
-                string p=*it;
+                string p=it;
                 stringstream geek(p);
                 // The object has the value 12345 and stream
                 // it to the integer x
                 int x = 0;
                 geek >> x;
-                if(flag==1)
+                if(flag==1 && x < 35)
                 {
-                    if(x<35)
-                    {
-                        check_fail=1;
-                        failCount++;
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
+                    check_fail=1;
+                    failCount++;
+                    break;
+                } else {
+                    continue;
                 }
-                if(classes==(*it) && i==1)
+                if(classes==(it) && i==1)
                 {
                         flag=1;
                         totalCount++;
@@ -217,33 +210,36 @@ void overAllClassResult()
             }
 
         }
-        cout<<endl<<"\t\t\t\t !** CLASS "<<classes<<" RESULT**!\t\t\n\n\n";
-        cout<<"Total No. of Failed Students:"<<failCount<<endl;
-        cout<<"Total No. of Passed Students:"<<passCount<<endl;
-        cout<<"Total No. of Students:"<<totalCount<<endl;
-        cout<<"School Annual Result(%):"<<(double)(100*passCount)/totalCount<<"%";
-        cout<<endl;
+        std::cout<<endl<<"\t\t\t\t !** CLASS "<<classes<<" RESULT**!\t\t\n\n\n";
+        std::cout<<"Total No. of Failed Students:"<<failCount<<endl;
+        std::cout<<"Total No. of Passed Students:"<<passCount<<endl;
+        std::cout<<"Total No. of Students:"<<totalCount<<endl;
+        std::cout<<"School Annual Result(%):"<<(double)(100*passCount)/totalCount<<"%";
+        std::cout<<endl;
 
 }
 
 void schoolResult()
 {
-    int failCount=0,passCount=0,totalCount=0;
+    int failCount=0;
+    int passCount=0;
+    int totalCount=0;
     ifstream file("resultInfo.txt");
     string line;
     while(std::getline(file, line))
     {
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
 
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        int flag=0,i=0;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        int flag=0;
+        int i=0;
+        for(const auto &it : arrayTokens)
         {
-            string p=*it;
+            string p=it;
             stringstream geek(p);
             // The object has the value 12345 and stream
             // it to the integer x
@@ -257,30 +253,27 @@ void schoolResult()
                 break;
             }
             i++;
-
         }
         if(flag==0)
         {
             passCount++;
 
         }
-
-
         totalCount++;
     }
 
-    cout<<"Total No. of Failed Students:"<<failCount<<endl;
-    cout<<"Total No. of Passed Students:"<<passCount<<endl;
-    cout<<"Total No. of Students:"<<totalCount<<endl;
-    cout<<"School Annual Result(%):"<<(double)(100*passCount)/totalCount<<"%";
-    cout<<endl;
+    std::cout<<"Total No. of Failed Students:"<<failCount<<endl;
+    std::cout<<"Total No. of Passed Students:"<<passCount<<endl;
+    std::cout<<"Total No. of Students:"<<totalCount<<endl;
+    std::cout<<"School Annual Result(%):"<<(double)(100*passCount)/totalCount<<"%";
+    std::cout<<endl;
 }
 
 void studentResult()
 {
     string rId;
-    cout<<"\nEnter student Reg.ID:";
-    cin>>rId;
+    std::cout<<"\nEnter student Reg.ID:";
+    std::cin>>rId;
     ifstream file("resultInfo.txt");
     string line;
     int s_result=1;
@@ -289,76 +282,71 @@ void studentResult()
     while(std::getline(file, line))
     {
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
 
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        int flag=0,i=0;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        int flag=0;
+        int i=0;
+        for(const auto &it : arrayTokens)
         {
-             string p=*it;
+             string p=it;
              stringstream geek(p);
              // The object has the value 12345 and stream
              // it to the integer x
-             int x = 0;
+            int x = 0;
             geek >> x;
             if(flag==1)
             {
                 total+=x;
-                if(x<35)
-                {
-                    s_result=0;
-                    break;
-                }
-                else
-                {
-                    continue;
-                }
-
             }
-            if(rId==(*it) && i==0)
+            if(x<35 && flag == 1)
+            {
+                s_result=0;
+                break;
+            }
+            else
+            {
+                continue;
+            }
+            
+            if(rId==(it) && i==0)
             {
                 flag=1;
-                it++;
                 r1=line;
+                continue;
             }
             else
                 break;
 
         }
     }
-        cout<<endl<<"\t\t\t\t !** STUDENT RESULT **!\t\t\n\n\n";
-        cout<<setw(10)<<"Reg.Id";
-        cout<<setw(10)<<"Class";
-        cout<<setw(10)<<"Kannada";
-        cout<<setw(10)<<"English";
-        cout<<setw(10)<<"Maths";
-        cout<<setw(10)<<"Science";
-        cout<<setw(10)<<"S.study";
-        cout<<endl;
+        std::cout<<endl<<"\t\t\t\t !** STUDENT RESULT **!\t\t\n\n\n";
+        std::format("{:10}Reg.Id{:10}Class{:10}Kannada{:10}English{:10}Maths{:10}Science{:10}S.study"); 
+        std::cout<<endl;
         istringstream ss(r1);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
 
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        for(const auto &it :  arrayTokens)
         {
-            cout<<setw(10)<<*it;
+            std::format("{:10}{0}", it);
         }
 
         if(s_result==0)
         {
-            cout<<"**Result is Fail**";
+            std::cout<<"**Result is Fail**";
         }
         else
         {
-            cout<<"\n\n\tTotal Score->"<<total<<endl;
-            cout<<"\tTotal Percentage(%)->"<<((double)total/500)*100<<"%"<<endl;
-            cout<<"\t**Result is Pass**";
+            std::cout<<"\n\n\tTotal Score->"<<total<<endl;
+            std::cout<<"\tTotal Percentage(%)->"<<((double)total/500)*100<<"%"<<endl;
+            std::cout<<"\t**Result is Pass**";
         }
-        cout<<endl;
+        std::cout<<endl;
 }
