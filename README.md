@@ -1,2 +1,2 @@
 # Student-Management-System
-Student Management System is a part of 3rd semester's OOPS project
+Student Management System is a part of 2nd semester's OOPS project
