@@ -290,7 +290,8 @@ void studentResult()
 
         int flag=0;
         int i=0;
-        for(const auto &it : arrayTokens)
+        bool done = false;
+        for(const auto &it : arrayTokens) if(!done)
         {
              string p=it;
              stringstream geek(p);
@@ -305,7 +306,7 @@ void studentResult()
             if(x<35 && flag == 1)
             {
                 s_result=0;
-                break;
+                done = true;
             }
             else
             {
@@ -319,34 +320,33 @@ void studentResult()
                 continue;
             }
             else
-                break;
-
+                done = true;
         }
     }
-        std::cout<<endl<<"\t\t\t\t !** STUDENT RESULT **!\t\t\n\n\n";
-        std::format("{:10}Reg.Id{:10}Class{:10}Kannada{:10}English{:10}Maths{:10}Science{:10}S.study"); 
-        std::cout<<endl;
-        istringstream ss(r1);
-        std::istream_iterator<std::string> begin(ss);
-        std::istream_iterator<std::string> end;
+    std::cout<<endl<<"\t\t\t\t !** STUDENT RESULT **!\t\t\n\n\n";
+    std::format("{:10}Reg.Id{:10}Class{:10}Kannada{:10}English{:10}Maths{:10}Science{:10}S.study"); 
+    std::cout<<endl;
+    istringstream ss(r1);
+    std::istream_iterator<std::string> begin(ss);
+    std::istream_iterator<std::string> end;
 
-        //putting all the tokens in the vector
-        std::vector<std::string> arrayTokens(begin, end);
+    //putting all the tokens in the vector
+    std::vector<std::string> arrayTokens(begin, end);
 
-        for(const auto &it :  arrayTokens)
-        {
-            std::format("{:10}{0}", it);
-        }
+    for(const auto &it :  arrayTokens)
+    {
+        std::format("{:10}{0}", it);
+    }
 
-        if(s_result==0)
-        {
-            std::cout<<"**Result is Fail**";
-        }
-        else
-        {
-            std::cout<<"\n\n\tTotal Score->"<<total<<endl;
-            std::cout<<"\tTotal Percentage(%)->"<<((double)total/500)*100<<"%"<<endl;
-            std::cout<<"\t**Result is Pass**";
-        }
-        std::cout<<endl;
+    if(s_result==0)
+    {
+        std::cout<<"**Result is Fail**";
+    }
+    else
+    {
+        std::cout<<"\n\n\tTotal Score->"<<total<<endl;
+        std::cout<<"\tTotal Percentage(%)->"<<((double)total/500)*100<<"%"<<endl;
+        std::cout<<"\t**Result is Pass**";
+    }
+    std::cout<<endl;
 }
