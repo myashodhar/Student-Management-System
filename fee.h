@@ -7,7 +7,6 @@
 #include <iterator> //for std::istream_iterator
 #include <vector>
 #include <iomanip>
-#include <algorithm>
 
 
 struct fee
