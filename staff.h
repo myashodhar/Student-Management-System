@@ -6,11 +6,8 @@
 #include <iterator> //for std::istream_iterator
 #include <vector>
 #include <iomanip>
-using namespace std;
 
-
-
-typedef struct staff
+struct staff
 {
  string id;// for staff id
  string fName;//for student first name
@@ -25,28 +22,28 @@ void newStaffRegistration()
 {
     fstream outfile ("staffInfo.txt",ios::app);
     staff s1;
-    cout<<"StaffId:";
-    cin>>s1.id;
-    cout<<"FirstName:";
-    cin>>s1.fName;
-    cout<<"LastName:";
-    cin>>s1.lName;
-    cout<<"Pay:";
-    cin>>s1.pay;
-    cout<<"Qualification:";
-    cin>>s1.qualification;
-    cout<<"Mobile Number:";
-    cin>>s1.mNumber;
+    std::cout<<"StaffId:";
+    std::cin>>s1.id;
+    std::cout<<"FirstName:";
+    std::cin>>s1.fName;
+    std::cout<<"LastName:";
+    std::cin>>s1.lName;
+    std::cout<<"Pay:";
+    std::cin>>s1.pay;
+    std::cout<<"Qualification:";
+    std::cin>>s1.qualification;
+    std::cout<<"Mobile Number:";
+    std::cin>>s1.mNumber;
     outfile<<s1.id<<" "<<s1.fName<<" "<<s1.lName<<" "<<s1.pay<<" "<<s1.qualification<<" "<<s1.mNumber<<endl;
-    cout<<"\n**Successfully Added**\n";
+    std::cout<<"\n**Successfully Added**\n";
     outfile.close();
     return;
 }
 void updateStaffInform()
 {
     string sId;
-    cout<<"\n Enter staff Id:\n";
-    cin>>sId;
+    std::cout<<"\n Enter staff Id:\n";
+    std::cin>>sId;
 
     staff s1;
     fstream infile ("staffInfo.txt");
@@ -57,15 +54,16 @@ void updateStaffInform()
     {
 
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        int i=0,flag=0;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        int i=0;
+        int flag=0;
+        for(const auto &it : arrayTokens)
         {
-            if(i==0 && sId==*it)
+            if(i==0 && sId==it)
             {
                 flag=1;
             }
@@ -75,18 +73,18 @@ void updateStaffInform()
         }
         if(flag==1)
         {
-            cout<<"FirstName:";
-            cin>>s1.fName;
-            cout<<"LastName:";
-            cin>>s1.lName;
-            cout<<"Pay:";
-            cin>>s1.pay;
-            cout<<"Qualification:";
-            cin>>s1.qualification;
-            cout<<"Mobile Number:";
-            cin>>s1.mNumber;
+            std::cout<<"FirstName:";
+            std::cin>>s1.fName;
+            std::cout<<"LastName:";
+            std::cin>>s1.lName;
+            std::cout<<"Pay:";
+            std::cin>>s1.pay;
+            std::cout<<"Qualification:";
+            std::cin>>s1.qualification;
+            std::cout<<"Mobile Number:";
+            std::cin>>s1.mNumber;
             tempfile<<sId<<" "<<s1.fName<<" "<<s1.lName<<" "<<s1.pay<<" "<<s1.qualification<<" "<<s1.mNumber<<endl;
-            cout<<"\n**Successfully updated**\n";
+            std::cout<<"\n**Successfully updated**\n";
 
         }
         else
@@ -104,8 +102,8 @@ void updateStaffInform()
 void deleteStaffInform()
 {
         string sId;
-    cout<<"\n Enter staff Id:\n";
-    cin>>sId;
+    std::cout<<"\n Enter staff Id:\n";
+    std::cin>>sId;
 
     staff s1;
     fstream infile ("staffInfo.txt");
@@ -116,15 +114,16 @@ void deleteStaffInform()
     {
 
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        int i=0,flag=0;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        int i=0;
+        int flag=0;
+        for(const auto &it : arrayTokens)
         {
-            if(i==0 && sId==*it)
+            if(i==0 && sId==it)
             {
                 flag=1;
             }
@@ -138,7 +137,7 @@ void deleteStaffInform()
         }
         else
         {
-            cout<<"\n\n ** deleted successfully**\n";
+            std::cout<<"\n\n ** deleted successfully**\n";
 
         }
     }
@@ -154,27 +153,26 @@ void listOfStaffs()
 
     fstream file ("staffInfo.txt");
     staff s1;
-cout<<endl<<"\t\t\t\t !** STAFF LIST **!\t\t\n\n\n";
-    cout<<setw(15)<<"S.ID"<<setw(15)<<"F.NAME:"<<setw(15)<<"L.NAME"<<setw(15)<<"PAY"<<setw(15)<<"QUALIFICATION"<<setw(15)<<"M.NUMBER"<<endl<<endl;
+    std::cout<<endl<<"\t\t\t\t !** STAFF LIST **!\t\t\n\n\n";
+    std::format("{:15}S.ID{:15}F.NAME{:15}L.NAME{:15}PAY{:15}QUALIFICATION{:15}M.NUMBER\n\n");
+    // std::cout<<setw(15)<<"S.ID"<<setw(15)<<"F.NAME:"<<setw(15)<<"L.NAME"<<setw(15)<<"PAY"<<setw(15)<<"QUALIFICATION"<<setw(15)<<"M.NUMBER"<<endl<<endl;
     string line;
     while(std::getline(file, line))
     {
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
 
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        for(const auto &it : arrayTokens)
         {
-
-                cout<<setw(15)<<*it;// prints d.
-
+            std::format("{:15}{0}", it);
+            // std::cout<<setw(15)<<it;// prints d.
         }
-        cout<<endl;
+        std::cout<<endl;
     }
-        cout<<endl;
+        std::cout<<endl;
 
 }
