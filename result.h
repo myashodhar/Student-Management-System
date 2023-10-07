@@ -301,13 +301,12 @@ void studentResult()
             if(flag==1) 
             {
                 total+=x;
-                if(x<35) //check the condition here instead of nesting another if
-                {
-                    s_result=0;
-                    done = true;
-                }
             }
-            else if(rId==(it) && i==0) //use else if instead of nesting another if
+            if(x<35 && flag == 1) //check the condition here instead of nesting another if
+            {
+                s_result=0;
+                done = true;
+            } else if(rId==(it) && i==0) //use else if instead of nesting another if
             {
                 flag=1;
                 r1=line;
