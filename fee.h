@@ -7,7 +7,12 @@
 #include <iterator> //for std::istream_iterator
 #include <vector>
 #include <iomanip>
+#include <algorithm>
 
+
+void _updateFee_helper(){
+
+}
 
 struct fee
 {
@@ -65,9 +70,9 @@ void updateFee()
         
         int i=0;
         int flag=0;
-        for(vector<string>::iterator it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        for(int it = 0; it < arrayTokens.size(); it++)
         {
-            if(i==0 && classes==*it)
+            if(i==0 && classes==arrayTokens[it])
             {
                 flag=1;
             }
@@ -117,10 +122,10 @@ void listAllFees()
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        for(vector<string>::iterator it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        for(int it = 0; it < arrayTokens.size(); it++)
         {
 
-                std::format("{:15}{0}", *it);// prints d.
+                std::format("{:15}{0}", arrayTokens[it]);// prints d.
 
         }
         std::cout << '\n';
@@ -153,9 +158,9 @@ void deleteFee()
 
         int i=0;
         int flag=0;
-        for(vector<string>::iterator it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        for(int it = 0; it < arrayTokens.size(); it++)
         {
-            if(i==0 && classes==*it)
+            if(i==0 && classes==arrayTokens[it])
             {
                 flag=1;
             }
