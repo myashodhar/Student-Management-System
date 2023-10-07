@@ -155,7 +155,7 @@ void listOfStaffs()
     staff s1;
     std::cout<<endl<<"\t\t\t\t !** STAFF LIST **!\t\t\n\n\n";
     std::format("{:15}S.ID{:15}F.NAME{:15}L.NAME{:15}PAY{:15}QUALIFICATION{:15}M.NUMBER\n\n");
-    // std::cout<<setw(15)<<"S.ID"<<setw(15)<<"F.NAME:"<<setw(15)<<"L.NAME"<<setw(15)<<"PAY"<<setw(15)<<"QUALIFICATION"<<setw(15)<<"M.NUMBER"<<endl<<endl;
+    
     string line;
     while(std::getline(file, line))
     {
@@ -169,7 +169,7 @@ void listOfStaffs()
         for(const auto &it : arrayTokens)
         {
             std::format("{:15}{0}", it);
-            // std::cout<<setw(15)<<it;// prints d.
+            
         }
         std::cout<<endl;
     }
