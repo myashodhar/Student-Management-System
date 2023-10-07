@@ -10,10 +10,6 @@
 #include <algorithm>
 
 
-void _updateFee_helper(){
-
-}
-
 struct fee
 {
  string classes;//for classNo number
@@ -70,9 +66,9 @@ void updateFee()
         
         int i=0;
         int flag=0;
-        for(int it = 0; it < arrayTokens.size(); it++)
+        for(auto it : arrayTokens)
         {
-            if(i==0 && classes==arrayTokens[it])
+            if(i==0 && classes==it)
             {
                 flag=1;
             }
@@ -122,10 +118,10 @@ void listAllFees()
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        for(int it = 0; it < arrayTokens.size(); it++)
+        for(auto it : arrayTokens)
         {
 
-                std::format("{:15}{0}", arrayTokens[it]);// prints d.
+                std::format("{:15}{0}", it);// prints d.
 
         }
         std::cout << '\n';
@@ -158,9 +154,9 @@ void deleteFee()
 
         int i=0;
         int flag=0;
-        for(int it = 0; it < arrayTokens.size(); it++)
+        for(auto it : arrayTokens)
         {
-            if(i==0 && classes==arrayTokens[it])
+            if(i==0 && classes==it)
             {
                 flag=1;
             }
