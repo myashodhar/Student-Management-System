@@ -291,38 +291,30 @@ void studentResult()
         int flag=0;
         int i=0;
         bool done = false;
-        for(const auto &it : arrayTokens) if(!done)
+        for(const auto &it : arrayTokens) 
         {
-             string p=it;
-             stringstream geek(p);
-             // The object has the value 12345 and stream
-             // it to the integer x
+            if(done) break; //exit the loop if done is true
+            string p=it;
+            stringstream geek(p);
             int x = 0;
             geek >> x;
-            if(flag==1)
+            if(flag==1) 
             {
                 total+=x;
+                if(x<35) //check the condition here instead of nesting another if
+                {
+                    s_result=0;
+                    done = true;
+                }
             }
-            if(x<35 && flag == 1)
-            {
-                s_result=0;
-                done = true;
-            }
-            else
-            {
-                continue;
-            }
-            
-            if(rId==(it) && i==0)
+            else if(rId==(it) && i==0) //use else if instead of nesting another if
             {
                 flag=1;
                 r1=line;
-                continue;
             }
-            else
-                done = true;
         }
-    }
+}
+
     std::cout<<endl<<"\t\t\t\t !** STUDENT RESULT **!\t\t\n\n\n";
     std::format("{:10}Reg.Id{:10}Class{:10}Kannada{:10}English{:10}Maths{:10}Science{:10}S.study"); 
     std::cout<<endl;
