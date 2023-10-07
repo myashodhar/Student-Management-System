@@ -1,20 +1,16 @@
 
-#include<iostream>
-#include<fstream>
 #include <iostream>
+#include <fstream>
+#include <format>
 #include <sstream>
 #include <string>
 #include <iterator> //for std::istream_iterator
 #include <vector>
 #include <iomanip>
-using namespace std;
+#include <algorithm>
 
 
-
-
-
-
-typedef struct fee
+struct fee
 {
  string classes;//for classNo number
  string year;//for kannada
@@ -28,31 +24,32 @@ void addFee()
 {
     fee s1;
     fstream outfile ("feeInfo.txt",ios::app);
-    cout<<"Class(Standard):";
-    cin>>s1.classes;
-    cout<<"Year:";
-    cin>>s1.year;
-    cout<<"SportsFee:";
-    cin>>s1.sportsFee;
-    cout<<"TuitionFee:";
-    cin>>s1.tuitionFee;
-    cout<<"UniformFee:";
-    cin>>s1.uniformFee;
+    std::cout<<"Class(Standard):";
+    std::cin>>s1.classes;
+    std::cout<<"Year:";
+    std::cin>>s1.year;
+    std::cout<<"SportsFee:";
+    std::cin>>s1.sportsFee;
+    std::cout<<"TuitionFee:";
+    std::cin>>s1.tuitionFee;
+    std::cout<<"UniformFee:";
+    std::cin>>s1.uniformFee;
     s1.total=s1.sportsFee+s1.tuitionFee+s1.uniformFee;
     outfile<<s1.classes<<" "<<s1.year<<" "<<s1.sportsFee<<" "<<s1.tuitionFee<<" "<<s1.uniformFee<<" "<<s1.total<<endl;
-    cout<<"\n**Successfully Added**\n";
+    std::cout<<"\n**Successfully Added**\n";
     outfile.close();
     return;
 }
 
 void updateFee()
 {
-    string classes,year;
-    cout<<"\n Enter class(STANDARD):\n";
-    cin>>classes;
+    string classes;
+    string year;
+    std::cout<<"\n Enter class(STANDARD):\n";
+    std::cin>>classes;
 
-    cout<<"\n Enter Year:\n";
-    cin>>year;
+    std::cout<<"\n Enter Year:\n";
+    std::cin>>year;
 
     fee s1;
     fstream infile ("feeInfo.txt");
@@ -61,13 +58,15 @@ void updateFee()
     while(std::getline(infile, line))
     {
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        int i=0,flag=0;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        
+        int i=0;
+        int flag=0;
+        for(vector<string>::iterator it = arrayTokens.begin(); it != arrayTokens.end(); it++)
         {
             if(i==0 && classes==*it)
             {
@@ -79,15 +78,15 @@ void updateFee()
         }
         if(flag==1)
         {
-            cout<<"SportsFee:";
-            cin>>s1.sportsFee;
-            cout<<"TuitionFee:";
-            cin>>s1.tuitionFee;
-            cout<<"UniformFee:";
-            cin>>s1.uniformFee;
+            std::cout<<"SportsFee:";
+            std::cin>>s1.sportsFee;
+            std::cout<<"TuitionFee:";
+            std::cin>>s1.tuitionFee;
+            std::cout<<"UniformFee:";
+            std::cin>>s1.uniformFee;
             s1.total=s1.sportsFee+s1.tuitionFee+s1.uniformFee;
             tempfile<<classes<<" "<<year<<" "<<s1.sportsFee<<" "<<s1.tuitionFee<<" "<<s1.uniformFee<<" "<<s1.total<<endl;
-            cout<<"\n**Successfully updated**\n";
+            std::cout<<"\n**Successfully updated**\n";
 
         }
         else
@@ -107,23 +106,22 @@ void listAllFees()
 {
     ifstream file("feeInfo.txt");
     string content;
-    cout<<endl<<"\t\t\t\t !** FEES LIST **!\t\t\n\n\n";
-    cout << setw(15) <<"CLASS" << setw(15) << "YEAR" << setw(15) << "S.FEE" <<setw(15) <<"T.FEE"<<setw(15)<<"U.FEE"<<setw(15)<<"TOTAL"<<endl<<endl;
+    std::cout<<endl<<"\t\t\t\t !** FEES LIST **!\t\t\n\n\n";
+    std::cout << setw(15) <<"CLASS" << setw(15) << "YEAR" << setw(15) << "S.FEE" <<setw(15) <<"T.FEE"<<setw(15)<<"U.FEE"<<setw(15)<<"TOTAL"<<endl<<endl;
     string line;
     while(std::getline(file, line))
     {
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
 
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        for(vector<string>::iterator it = arrayTokens.begin(); it != arrayTokens.end(); it++)
         {
 
-                cout<<setw(15)<<*it;// prints d.
+                std::format("{:15}{0}", *it);// prints d.
 
         }
         std::cout << '\n';
@@ -135,26 +133,28 @@ void listAllFees()
 
 void deleteFee()
 {
-    string classes,year;
-    cout<<"\n Enter class(STANDARD):\n";
-    cin>>classes;
+    string classes;
+    string year;
+    std::cout<<"\n Enter class(STANDARD):\n";
+    std::cin>>classes;
 
     fee s1;
     fstream infile ("feeInfo.txt");
     fstream tempfile ("tempInfo.txt",ios::app);
     string line;
-    int p=0;
+
     while(std::getline(infile, line))
     {
 
         istringstream ss(line);
-        std::istream_iterator<std::string> begin(ss), end;
+        std::istream_iterator<std::string> begin(ss);
+        std::istream_iterator<std::string> end;
         //putting all the tokens in the vector
         std::vector<std::string> arrayTokens(begin, end);
 
-        vector<string>::iterator it;
-        int i=0,flag=0;
-        for(it = arrayTokens.begin(); it != arrayTokens.end(); it++)
+        int i=0;
+        int flag=0;
+        for(vector<string>::iterator it = arrayTokens.begin(); it != arrayTokens.end(); it++)
         {
             if(i==0 && classes==*it)
             {
@@ -169,7 +169,7 @@ void deleteFee()
             tempfile<<line<<endl;
         }
         else{
-            cout<<"** successfully Deleted **\n";
+            std::cout<<"** successfully Deleted **\n";
         }
 
 
